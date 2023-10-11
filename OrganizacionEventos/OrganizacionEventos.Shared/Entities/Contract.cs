@@ -11,9 +11,9 @@ namespace OrganizacionEventos.Shared.Entities
     {
         public int Id { get; set; }
         public Customer Customer { get; set; }
-        public int IdCustomer {  get; set; }
+        public int CustomerId {  get; set; }
         public Event Event { get; set; }
-        public int IdEvent { get; set; }
+        public int EventId { get; set; }
 
         [Required]
         public string Date {  get; set; }

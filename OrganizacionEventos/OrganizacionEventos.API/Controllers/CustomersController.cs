@@ -24,7 +24,7 @@ namespace OrganizacionEventos.API.Controllers
     [HttpGet("{id:int}")]
     public async Task<ActionResult> Get(int id)
     {
-        var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == id);
+        var customer = await _context.Customers.FirstOrDefaultAsync(x => x.CustomerId == id);
         if (customer is null)
         {
             return NotFound();
@@ -52,7 +52,7 @@ namespace OrganizacionEventos.API.Controllers
     public async Task<ActionResult> Delete(int id)
     {
         var afectedRows = await _context.Customers
-            .Where(x => x.Id == id)
+            .Where(x => x.CustomerId == id)
             .ExecuteDeleteAsync();
 
         if (afectedRows == 0)
