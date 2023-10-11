@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OrganizacionEventos.Shared\OrganizacionEventos.Shared.csproj" />
+    <ProjectReference Include="..\OrganizacionEventos.WEB\OrganizacionEventos.WEB.csproj" />
   </ItemGroup>
 
 </Project>

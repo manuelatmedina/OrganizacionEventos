@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OrganizacionEventos.API.Data;
+using OrganizacionEventos.WEB.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<DataContext>(x=>x.UseSqlServer("name=DefaultConnec
 
 //Inyeccion de dependencias WEB
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:8000") });
+
+builder.Services.AddScoped<IRepository, Repository > ();
 
 var app = builder.Build();
 
