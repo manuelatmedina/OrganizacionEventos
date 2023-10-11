@@ -9,7 +9,7 @@ namespace OrganizacionEventos.Shared.Entities
 {
     public class Customer
     {
-        public int IdCustomer { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(50)]
