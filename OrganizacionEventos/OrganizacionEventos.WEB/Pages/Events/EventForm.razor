@@ -1,0 +1,94 @@
+﻿@using OrganizacionEventos.Shared.Entities;
+@inject SweetAlertService swal
+
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
+
+<EditForm EditContext="editContext" OnSubmit="OnSubmit">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label>Nombre Evento:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Event.Name" />
+            <ValidationMessage For="@(() => Event.Name)" />
+        </div>
+        <label>Descripción Evento:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Event.Description" />
+            <ValidationMessage For="@(() => Event.Description)" />
+        </div>
+        <label>Ubicación Evento:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Event.Location" />
+            <ValidationMessage For="@(() => Event.Location)" />
+        </div>
+        <label>Fecha Evento:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Event.Date" />
+            <ValidationMessage For="@(() => Event.Date)" />
+        </div>
+        <label>Hora Evento:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Event.Time" />
+            <ValidationMessage For="@(() => Event.Time)" />
+        </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+    <button class="btn btn-success" @onclick="ReturnAction">Regresar</button>
+</EditForm>
+
+@code {
+    private EditContext editContext = null!;
+
+    protected override void OnInitialized()
+    {
+        editContext = new(Event);
+    }
+
+    [EditorRequired]
+    [Parameter]
+    public Event Event { get; set; } = null!;
+
+    [EditorRequired]
+    [Parameter]
+    public EventCallback OnSubmit { get; set; }
+
+    [EditorRequired]
+    [Parameter]
+    public EventCallback ReturnAction { get; set; }
+
+    public bool FormPostedSuccessfully { get; set; } = false;
+
+    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    {
+        var formWasEdited = editContext.IsModified();
+
+        if (!formWasEdited)
+        {
+            return;
+        }
+
+        if (FormPostedSuccessfully)
+        {
+            return;
+        }
+
+        var result = await swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmación",
+                Text = "¿Deseas abandonar la página y perder los cambios?",
+                Icon = SweetAlertIcon.Warning,
+                ShowCancelButton = true
+            });
+
+        var confirm = !string.IsNullOrEmpty(result.Value);
+
+        if (confirm)
+        {
+            return;
+        }
+
+        context.PreventNavigation();
+    }
+}
+

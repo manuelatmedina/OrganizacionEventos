@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OrganizacionEventos.Shared.Entities
@@ -30,7 +31,8 @@ namespace OrganizacionEventos.Shared.Entities
 
 
         //Colecciòn de Customer
-        public ICollection<Contract> Contracts { get; set; }
-
+        [JsonIgnore]
+        public ICollection<Contract>? Contracts { get; set; }
+         
     }
 }

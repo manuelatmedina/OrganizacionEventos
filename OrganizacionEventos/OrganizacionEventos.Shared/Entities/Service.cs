@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OrganizacionEventos.Shared.Entities
@@ -23,7 +24,8 @@ namespace OrganizacionEventos.Shared.Entities
         public decimal Price {  get; set; }
 
         //Colecciòn de servicios
-        public ICollection<ServiceEvent> serviceEvents { get; set; }
+        [JsonIgnore]
+        public ICollection<ServiceEvent>? serviceEvents { get; set; }
 
     }
 }
