@@ -3,6 +3,9 @@
 @using OrganizacionEventos.WEB.Repositories;
 
 @inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService swal
+
 
 <h3>Eventos</h3>
 
@@ -29,8 +32,9 @@
                             @event_.Name @event_.Description
                         </td>
                         <td>
-                            <a class="btn btn-warning">Editar</a>
-                            <button class="btn btn-danger">Borrar</button>
+                            <a href="/events/edit/@event_.Id" class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger" @onclick=@(() => Delete(event_))>Borrar</button>
+
                         </td>
 
                     </tr>
@@ -49,7 +53,52 @@
     {
         var responseHppt = await repository.Get<List<Event>>("/api/events");
         Events = responseHppt.Response!;
+        await Load();
     }
+    
+    private async Task Load()
+    {
+        var responseHppt = await repository.Get<List<Event>>("api/events");
+        Events = responseHppt.Response!;
+    }
+
+    private async Task Delete(Event event_)
+    {
+        var result = await swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmación",
+                Text = "¿Esta seguro que quieres borrar el registro?",
+                Icon = SweetAlertIcon.Question,
+                ShowCancelButton = true
+            });
+
+        var confirm = string.IsNullOrEmpty(result.Value);
+
+        if (confirm)
+        {
+            return;
+        }
+
+        var responseHTTP = await repository.Delete($"api/events/{event_.Id}");
+
+        if (responseHTTP.Error)
+        {
+            if (responseHTTP.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("/");
+            }
+            else
+            {
+                var mensajeError = await responseHTTP.GetErrorMessageAsync();
+                await swal.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            await Load();
+        }
+    }
+
 }
 
 
