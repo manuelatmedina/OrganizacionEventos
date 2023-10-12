@@ -22,11 +22,11 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var @event in Events!)
+                @foreach (var event_ in Events!)
                 {
                     <tr>
                         <td>
-                            @@event.Name
+                            @event_.Name @event_.Description
                         </td>
                         <td>
                             <a class="btn btn-warning">Editar</a>
