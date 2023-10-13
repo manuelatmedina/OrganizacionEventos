@@ -1,0 +1,67 @@
+﻿@page "/Employees/edit/{Id:int}"
+@using OrganizacionEventos.Shared.Entities;
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService swal
+
+<h3>Editar Contrato</h3>
+
+@if (Employee is null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <EmployeeForm @ref="EmployeeForm" Employee="Employee" OnSubmit="Edit" ReturnAction="Return" />
+}
+
+@code {
+    private Employee? Employee;
+    private EmployeeForm? EmployeeForm;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var responseHTTP = await repository.Get<Employee>($"api/employees/{Id}");
+
+        if (responseHTTP.Error)
+        {
+            if (responseHTTP.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("Employees");
+            }
+            else
+            {
+                var messageError = await responseHTTP.GetErrorMessageAsync();
+                await swal.FireAsync("Error", messageError, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            Employee = responseHTTP.Response;
+        }
+    }
+
+    private async Task Edit()
+    {
+        var responseHTTP = await repository.Put("api/employees", Employee);
+
+        if (responseHTTP.Error)
+        {
+            var mensajeError = await responseHTTP.GetErrorMessageAsync();
+            await swal.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+        }
+        else
+        {
+            EmployeeForm!.FormPostedSuccessfully = true;
+            navigationManager.NavigateTo("Employees");
+        }
+    }
+
+    private void Return()
+    {
+        navigationManager.NavigateTo("Employees");
+    }
+}

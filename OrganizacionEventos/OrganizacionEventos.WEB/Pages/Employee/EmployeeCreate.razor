@@ -1,0 +1,37 @@
+﻿@page "/Employees/create"
+@using OrganizacionEventos.Shared.Entities;
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService swal
+
+<h3>Crear Evento</h3>
+
+<EmployeeForm @ref="EmployeeForm" Employee="Employee" OnSubmit="Create" ReturnAction="Return" />
+
+@code {
+    private Employee Employee = new();
+    private EmployeeForm? EmployeeForm;
+
+    private async Task Create()
+    {
+        var httpResponse = await repository.Post("api/Employees", Employee);
+
+        if (httpResponse.Error)
+        {
+            var mensajeError = await httpResponse.GetErrorMessageAsync();
+            await swal.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+        }
+        else
+        {
+            EmployeeForm!.FormPostedSuccessfully = true;
+            navigationManager.NavigateTo("Employees");
+        }
+    }
+
+    private void Return()
+    {
+        navigationManager.NavigateTo("Employees");
+    }
+}
+
+
