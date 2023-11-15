@@ -6,33 +6,31 @@
 <EditForm EditContext="editContext" OnSubmit="OnSubmit">
     <DataAnnotationsValidator />
     <div class="mb-3">
-        <label>ID Contrato:</label>
+        <label>ID:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.Id" />
-            <ValidationMessage For="@(() => Contract.Id)" />
+            <InputNumber class="form-control" @bind-Value="@EmployeeEvent.Id" />
+            <ValidationMessage For="@(() => EmployeeEvent.Id)" />
         </div>
-        <label>Cliente ID:</label>
+        <label>Empleado ID:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.CustomerId" />
-            <ValidationMessage For="@(() => Contract.CustomerId)" />
+            <InputNumber class="form-control" @bind-Value="@EmployeeEvent.EmployeeId" />
+            <ValidationMessage For="@(() => EmployeeEvent.EmployeeId)" />
         </div>
         <label>Evento ID:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.EventId" />
-            <ValidationMessage For="@(() => Contract.EventId)" />
+            <InputNumber class="form-control" @bind-Value="@EmployeeEvent.EventId" />
+            <ValidationMessage For="@(() => EmployeeEvent.EventId)" />
         </div>
-        <label>Fecha Contrato:</label>
+        <label>Fecha Asignaciòn:</label>
         <div>
-            <InputText class="form-control" @bind-Value="@Contract.Date" />
-            <ValidationMessage For="@(() => Contract.Date)" />
+            <InputNumber class="form-control" @bind-Value="@EmployeeEvent.AssignmentDate" />
+            <ValidationMessage For="@(() => EmployeeEvent.AssignmentDate)" />
         </div>
-        <label>Precio Total:</label>
+        <label>Rol Empleado:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.TotalPrice" />
-            <ValidationMessage For="@(() => Contract.TotalPrice)" />
+            <InputNumber class="form-control" @bind-Value="@EmployeeEvent.EmployeeRole" />
+            <ValidationMessage For="@(() => EmployeeEvent.EmployeeRole)" />
         </div>
-
-        
     </div>
 
     <button class="btn btn-primary" type="submit">Guardar Cambios</button>
@@ -44,12 +42,12 @@
 
     protected override void OnInitialized()
     {
-        editContext = new(Contract);
+        editContext = new(EmployeeEvent);
     }
 
     [EditorRequired]
     [Parameter]
-    public Contract Contract{ get; set; } = null!;
+    public EmployeeEvent EmployeeEvent { get; set; } = null!;
 
     [EditorRequired]
     [Parameter]
@@ -93,3 +91,5 @@
         context.PreventNavigation();
     }
 }
+
+

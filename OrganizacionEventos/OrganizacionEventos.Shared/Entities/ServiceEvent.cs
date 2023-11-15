@@ -13,11 +13,11 @@ namespace OrganizacionEventos.Shared.Entities
         public int Id { get; set; }
 
         [JsonIgnore]
-        public Service Service { get; set; }
+        public Service? Service { get; set; }
         public int ServiceId { get; set; }
 
         [JsonIgnore]
-        public Event Event { get; set; }
+        public Event? Event { get; set; }
         public int EventId { get; set; }
 
         [Required]

@@ -1,0 +1,55 @@
+﻿@page "/serviceevents"
+@using OrganizacionEventos.Shared.Entities;
+
+@inject IRepository repository
+
+<h3>Servicios en Eventos</h3>
+
+<div class="mb-3">
+    <a class="btn btn-primary" href="/serviceevents/create">Asignar Nuevo Servicio a Evento</a>
+</div>
+
+<GenericList MyList="ServiceEvents">
+
+    <Body>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Servicios en Eventos</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var serviceevent in ServiceEvents!)
+                {
+                    <tr>
+                        <td>
+                            Servicio @serviceevent.ServiceId Evento @serviceevent.EventId
+                        </td>
+                        <td>
+                            <a class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger">Borrar</button>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </Body>
+
+</GenericList>
+
+@code {
+    public List<ServiceEvent>? ServiceEvents { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        var responseHppt = await repository.Get<List<ServiceEvent>>("/api/serviceevents");
+        ServiceEvents = responseHppt.Response!;
+    }
+}
+
+
+

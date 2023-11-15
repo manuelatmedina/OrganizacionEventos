@@ -1,0 +1,68 @@
+﻿@page "/serviceevents/edit/{Id:int}"
+@using OrganizacionEventos.Shared.Entities;
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService swal
+
+<h3>Editar Servicios en Evento</h3>
+
+@if (serviceEvent is null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <ServiceEventForm @ref="serviceeventForm" ServiceEvent="serviceEvent" OnSubmit="Edit" ReturnAction="Return" />
+}
+
+@code {
+    private ServiceEvent? serviceEvent;
+    private ServiceEventForm? serviceeventForm;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var responseHTTP = await repository.Get<ServiceEvent>($"api/serviceevents/{Id}");
+
+        if (responseHTTP.Error)
+        {
+            if (responseHTTP.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("serviceevents");
+            }
+            else
+            {
+                var messageError = await responseHTTP.GetErrorMessageAsync();
+                await swal.FireAsync("Error", messageError, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            serviceEvent = responseHTTP.Response;
+        }
+    }
+
+    private async Task Edit()
+    {
+        var responseHTTP = await repository.Put("api/serviceevents", serviceEvent);
+
+        if (responseHTTP.Error)
+        {
+            var mensajeError = await responseHTTP.GetErrorMessageAsync();
+            await swal.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
+        }
+        else
+        {
+            serviceeventForm!.FormPostedSuccessfully = true;
+            navigationManager.NavigateTo("serviceevents");
+        }
+    }
+
+    private void Return()
+    {
+        navigationManager.NavigateTo("serviceevents");
+    }
+}
+

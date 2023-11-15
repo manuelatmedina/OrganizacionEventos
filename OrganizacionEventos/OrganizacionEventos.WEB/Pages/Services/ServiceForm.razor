@@ -6,33 +6,29 @@
 <EditForm EditContext="editContext" OnSubmit="OnSubmit">
     <DataAnnotationsValidator />
     <div class="mb-3">
-        <label>ID Contrato:</label>
+        <label>Servicio ID:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.Id" />
-            <ValidationMessage For="@(() => Contract.Id)" />
+            <InputNumber class="form-control" @bind-Value="@Service.Id" />
+            <ValidationMessage For="@(() => Service.Id)" />
         </div>
-        <label>Cliente ID:</label>
+        <label>Nombre Servicio:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.CustomerId" />
-            <ValidationMessage For="@(() => Contract.CustomerId)" />
+            <InputText class="form-control" @bind-Value="@Service.Name" />
+            <ValidationMessage For="@(() => Service.Name)" />
         </div>
-        <label>Evento ID:</label>
+        <label>Descripciòn Servicio:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.EventId" />
-            <ValidationMessage For="@(() => Contract.EventId)" />
+            <InputText class="form-control" @bind-Value="@Service.Description" />
+            <ValidationMessage For="@(() => Service.Description)" />
         </div>
-        <label>Fecha Contrato:</label>
+        <label>Precio Servicio:</label>
         <div>
-            <InputText class="form-control" @bind-Value="@Contract.Date" />
-            <ValidationMessage For="@(() => Contract.Date)" />
+            <InputNumber class="form-control" @bind-Value="@Service.Price" />
+            <ValidationMessage For="@(() => Service.Price)" />
         </div>
-        <label>Precio Total:</label>
-        <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.TotalPrice" />
-            <ValidationMessage For="@(() => Contract.TotalPrice)" />
-        </div>
-
         
+
+
     </div>
 
     <button class="btn btn-primary" type="submit">Guardar Cambios</button>
@@ -44,12 +40,12 @@
 
     protected override void OnInitialized()
     {
-        editContext = new(Contract);
+        editContext = new(Service);
     }
 
     [EditorRequired]
     [Parameter]
-    public Contract Contract{ get; set; } = null!;
+    public Service Service { get; set; } = null!;
 
     [EditorRequired]
     [Parameter]
@@ -93,3 +89,5 @@
         context.PreventNavigation();
     }
 }
+
+

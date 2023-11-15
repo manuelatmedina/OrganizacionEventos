@@ -6,33 +6,33 @@
 <EditForm EditContext="editContext" OnSubmit="OnSubmit">
     <DataAnnotationsValidator />
     <div class="mb-3">
-        <label>ID Contrato:</label>
+        <label>ID:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.Id" />
-            <ValidationMessage For="@(() => Contract.Id)" />
+            <InputNumber class="form-control" @bind-Value="@ServiceEvent.Id" />
+            <ValidationMessage For="@(() => ServiceEvent.Id)" />
         </div>
-        <label>Cliente ID:</label>
+        <label>Servicio ID:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.CustomerId" />
-            <ValidationMessage For="@(() => Contract.CustomerId)" />
+            <InputNumber class="form-control" @bind-Value="@ServiceEvent.ServiceId" />
+            <ValidationMessage For="@(() => ServiceEvent.ServiceId)" />
         </div>
         <label>Evento ID:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.EventId" />
-            <ValidationMessage For="@(() => Contract.EventId)" />
+            <InputNumber class="form-control" @bind-Value="@ServiceEvent.EventId" />
+            <ValidationMessage For="@(() => ServiceEvent.EventId)" />
         </div>
-        <label>Fecha Contrato:</label>
+        <label>Cantidad:</label>
         <div>
-            <InputText class="form-control" @bind-Value="@Contract.Date" />
-            <ValidationMessage For="@(() => Contract.Date)" />
+            <InputNumber class="form-control" @bind-Value="@ServiceEvent.Quantity" />
+            <ValidationMessage For="@(() => ServiceEvent.Quantity)" />
         </div>
         <label>Precio Total:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.TotalPrice" />
-            <ValidationMessage For="@(() => Contract.TotalPrice)" />
+            <InputNumber class="form-control" @bind-Value="@ServiceEvent.UnitPrice" />
+            <ValidationMessage For="@(() => ServiceEvent.UnitPrice)" />
         </div>
 
-        
+
     </div>
 
     <button class="btn btn-primary" type="submit">Guardar Cambios</button>
@@ -44,12 +44,12 @@
 
     protected override void OnInitialized()
     {
-        editContext = new(Contract);
+        editContext = new(ServiceEvent);
     }
 
     [EditorRequired]
     [Parameter]
-    public Contract Contract{ get; set; } = null!;
+    public ServiceEvent ServiceEvent { get; set; } = null!;
 
     [EditorRequired]
     [Parameter]
@@ -93,3 +93,4 @@
         context.PreventNavigation();
     }
 }
+

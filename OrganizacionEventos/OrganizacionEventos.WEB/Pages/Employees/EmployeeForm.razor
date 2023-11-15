@@ -6,33 +6,39 @@
 <EditForm EditContext="editContext" OnSubmit="OnSubmit">
     <DataAnnotationsValidator />
     <div class="mb-3">
-        <label>ID Contrato:</label>
+        <label>Empleado ID:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.Id" />
-            <ValidationMessage For="@(() => Contract.Id)" />
+            <InputNumber class="form-control" @bind-Value="@Employee.EmployeeId" />
+            <ValidationMessage For="@(() => Employee.EmployeeId)" />
         </div>
-        <label>Cliente ID:</label>
+        <label>Nombre Empleado:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.CustomerId" />
-            <ValidationMessage For="@(() => Contract.CustomerId)" />
+            <InputText class="form-control" @bind-Value="@Employee.Name" />
+            <ValidationMessage For="@(() => Employee.Name)" />
         </div>
-        <label>Evento ID:</label>
+        <label>Apellido Empleado:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.EventId" />
-            <ValidationMessage For="@(() => Contract.EventId)" />
+            <InputText class="form-control" @bind-Value="@Employee.Lastname" />
+            <ValidationMessage For="@(() => Employee.Lastname)" />
         </div>
-        <label>Fecha Contrato:</label>
+        <label>Nùmero Empleado:</label>
         <div>
-            <InputText class="form-control" @bind-Value="@Contract.Date" />
-            <ValidationMessage For="@(() => Contract.Date)" />
+            <InputText class="form-control" @bind-Value="@Employee.Phone" />
+            <ValidationMessage For="@(() => Employee.Phone)" />
         </div>
-        <label>Precio Total:</label>
+        <label>Email Empleado:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@Contract.TotalPrice" />
-            <ValidationMessage For="@(() => Contract.TotalPrice)" />
+            <InputText class="form-control" @bind-Value="@Employee.Email" />
+            <ValidationMessage For="@(() => Employee.Email)" />
+        </div>
+        <label>Posiciòn Empleado:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Employee.Position" />
+            <ValidationMessage For="@(() => Employee.Position)" />
         </div>
 
-        
+
+
     </div>
 
     <button class="btn btn-primary" type="submit">Guardar Cambios</button>
@@ -44,12 +50,12 @@
 
     protected override void OnInitialized()
     {
-        editContext = new(Contract);
+        editContext = new(Employee);
     }
 
     [EditorRequired]
     [Parameter]
-    public Contract Contract{ get; set; } = null!;
+    public Employee Employee { get; set; } = null!;
 
     [EditorRequired]
     [Parameter]
@@ -93,3 +99,6 @@
         context.PreventNavigation();
     }
 }
+
+
+

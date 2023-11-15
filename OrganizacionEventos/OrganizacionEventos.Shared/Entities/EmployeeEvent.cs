@@ -13,12 +13,12 @@ namespace OrganizacionEventos.Shared.Entities
         public int Id { get; set; }
 
         [JsonIgnore]
-        public Employee Employee { get; set; }
+        public Employee? Employee { get; set; }
         
         public int EmployeeId { get; set; }
 
         [JsonIgnore]
-        public Event Event { get; set; }
+        public Event? Event { get; set; }
         
         public int EventId { get; set; }
 
