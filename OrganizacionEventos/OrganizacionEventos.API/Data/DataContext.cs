@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Market.Shared.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using OrganizacionEventos.Shared.Entities;
 
 namespace OrganizacionEventos.API.Data
 {
     //Creaciòn inyeccion de dependencias clase program para poder conectar sql server
-    public class DataContext:DbContext
+    public class DataContext : IdentityDbContext<User>
     {
         public DataContext(DbContextOptions<DataContext>options):base(options) 
         {
