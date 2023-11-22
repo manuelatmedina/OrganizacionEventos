@@ -23,14 +23,16 @@
         </div>
         <label>Fecha Asignaciòn:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@EmployeeEvent.AssignmentDate" />
+            <InputText class="form-control" @bind-Value="@EmployeeEvent.AssignmentDate" />
             <ValidationMessage For="@(() => EmployeeEvent.AssignmentDate)" />
         </div>
         <label>Rol Empleado:</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@EmployeeEvent.EmployeeRole" />
+            <InputText class="form-control" @bind-Value="@EmployeeEvent.EmployeeRole" />
             <ValidationMessage For="@(() => EmployeeEvent.EmployeeRole)" />
         </div>
+
+
     </div>
 
     <button class="btn btn-primary" type="submit">Guardar Cambios</button>
@@ -91,5 +93,4 @@
         context.PreventNavigation();
     }
 }
-
 

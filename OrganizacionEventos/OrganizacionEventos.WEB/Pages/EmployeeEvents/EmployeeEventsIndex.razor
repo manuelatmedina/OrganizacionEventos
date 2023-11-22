@@ -6,7 +6,7 @@
 <h3>Empleados en Eventos</h3>
 
 <div class="mb-3">
-    <a class="btn btn-primary" href="/employeeevents/create">Asignar Nuevo Servicio a Evento</a>
+    <a class="btn btn-primary" href="/employeeevents/create">Asignar Nuevo Empleado a Evento</a>
 </div>
 
 <GenericList MyList="EmployeeEvents">
@@ -25,7 +25,7 @@
                 {
                     <tr>
                         <td>
-                            Empleado @employeeevent.EmployeeId Evento @employeeevent.EventId
+                            Enmpleado @employeeevent.Employee Evento @employeeevent.EventId
                         </td>
                         <td>
                             <a class="btn btn-warning">Editar</a>
@@ -50,7 +50,4 @@
         EmployeeEvents = responseHppt.Response!;
     }
 }
-
-
-
 

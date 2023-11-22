@@ -4,13 +4,13 @@
 @inject IRepository repository
 @inject SweetAlertService swal
 
-<h3>Crear Empleado en Evento</h3>
+<h3>Asignar Empleado a Evento</h3>
 
-<EmployeeEventForm @ref="employeeeventForm" EmployeeEvent="employeeEvent" OnSubmit="Create" ReturnAction="Return" />
+<EmployeeEventForm @ref="employeeeventsForm" EmployeeEvent="employeeEvent" OnSubmit="Create" ReturnAction="Return" />
 
 @code {
     private EmployeeEvent employeeEvent = new();
-    private EmployeeEventForm? employeeeventForm;
+    private EmployeeEventForm? employeeeventsForm;
 
     private async Task Create()
     {
@@ -23,7 +23,7 @@
         }
         else
         {
-            employeeeventForm!.FormPostedSuccessfully = true;
+            employeeeventsForm!.FormPostedSuccessfully = true;
             navigationManager.NavigateTo("employeeevents");
         }
     }
@@ -33,6 +33,3 @@
         navigationManager.NavigateTo("employeeevents");
     }
 }
-
-
-
